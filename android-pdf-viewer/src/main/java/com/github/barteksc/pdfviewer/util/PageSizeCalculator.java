@@ -46,7 +46,7 @@ public class PageSizeCalculator {
         if (pageSize.getWidth() <= 0 || pageSize.getHeight() <= 0) {
             return new SizeF(0, 0);
         }
-        float maxWidth = fitEachPage ? viewSize.getWidth() : (pageSize.getWidth() - (sideMargin * 2)) * widthRatio;
+        float maxWidth = fitEachPage ? viewSize.getWidth() : (pageSize.getWidth() * widthRatio) - (sideMargin * 2);
         float maxHeight = fitEachPage ? viewSize.getHeight() : pageSize.getHeight() * heightRatio;
         switch (fitPolicy) {
             case HEIGHT:
