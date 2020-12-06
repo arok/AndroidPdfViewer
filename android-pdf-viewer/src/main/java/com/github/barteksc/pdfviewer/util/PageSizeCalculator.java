@@ -28,14 +28,16 @@ public class PageSizeCalculator {
     private SizeF optimalMaxHeightPageSize;
     private float widthRatio;
     private float heightRatio;
+    private int sideMargin;
     private boolean fitEachPage;
 
     public PageSizeCalculator(FitPolicy fitPolicy, Size originalMaxWidthPageSize, Size originalMaxHeightPageSize,
-                              Size viewSize, boolean fitEachPage) {
+                              Size viewSize, int sideMargin, boolean fitEachPage) {
         this.fitPolicy = fitPolicy;
         this.originalMaxWidthPageSize = originalMaxWidthPageSize;
         this.originalMaxHeightPageSize = originalMaxHeightPageSize;
         this.viewSize = viewSize;
+        this.sideMargin = sideMargin;
         this.fitEachPage = fitEachPage;
         calculateMaxPages();
     }
@@ -44,7 +46,7 @@ public class PageSizeCalculator {
         if (pageSize.getWidth() <= 0 || pageSize.getHeight() <= 0) {
             return new SizeF(0, 0);
         }
-        float maxWidth = fitEachPage ? viewSize.getWidth() : pageSize.getWidth() * widthRatio;
+        float maxWidth = fitEachPage ? viewSize.getWidth() : (pageSize.getWidth() - (sideMargin * 2)) * widthRatio;
         float maxHeight = fitEachPage ? viewSize.getHeight() : pageSize.getHeight() * heightRatio;
         switch (fitPolicy) {
             case HEIGHT:
