@@ -34,7 +34,7 @@ import android.os.Build;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.view.NestedScrollingChild;
+import android.support.v4.view.NestedScrollingChild2;
 import android.support.v4.view.NestedScrollingChildHelper;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -96,7 +96,7 @@ import java.util.List;
  * using {@link #load(DocumentSource, String, int[])}. In this
  * particular case, a userPage of 5 can refer to a documentPage of 17.
  */
-public class PDFView extends RelativeLayout implements NestedScrollingChild {
+public class PDFView extends RelativeLayout implements NestedScrollingChild2 {
 
     private static final String TAG = PDFView.class.getSimpleName();
 
@@ -1416,6 +1416,31 @@ public class PDFView extends RelativeLayout implements NestedScrollingChild {
     @Override
     public boolean dispatchNestedPreFling(float velocityX, float velocityY) {
         return scrollingChildHelper.dispatchNestedPreFling(velocityX, velocityY);
+    }
+
+    @Override
+    public boolean startNestedScroll(int axes, int type) {
+        return scrollingChildHelper.startNestedScroll(axes, type);
+    }
+
+    @Override
+    public void stopNestedScroll(int type) {
+        scrollingChildHelper.stopNestedScroll(type);
+    }
+
+    @Override
+    public boolean hasNestedScrollingParent(int type) {
+        return scrollingChildHelper.hasNestedScrollingParent(type);
+    }
+
+    @Override
+    public boolean dispatchNestedScroll(int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, @Nullable int[] offsetInWindow, int type) {
+        return scrollingChildHelper.dispatchNestedScroll(dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, offsetInWindow, type);
+    }
+
+    @Override
+    public boolean dispatchNestedPreScroll(int dx, int dy, @Nullable int[] consumed, @Nullable int[] offsetInWindow, int type) {
+        return scrollingChildHelper.dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow, type);
     }
 
     private enum State {DEFAULT, LOADED, SHOWN, ERROR}
