@@ -15,8 +15,12 @@
  */
 package com.github.barteksc.pdfviewer;
 
+import static com.github.barteksc.pdfviewer.util.Constants.Pinch.MAXIMUM_ZOOM;
+import static com.github.barteksc.pdfviewer.util.Constants.Pinch.MINIMUM_ZOOM;
+
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.support.v4.view.ViewCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -27,9 +31,6 @@ import com.github.barteksc.pdfviewer.scroll.ScrollHandle;
 import com.github.barteksc.pdfviewer.util.SnapEdge;
 import com.shockwave.pdfium.PdfDocument;
 import com.shockwave.pdfium.util.SizeF;
-
-import static com.github.barteksc.pdfviewer.util.Constants.Pinch.MAXIMUM_ZOOM;
-import static com.github.barteksc.pdfviewer.util.Constants.Pinch.MINIMUM_ZOOM;
 
 /**
  * This Manager takes care of moving the PDFView,
@@ -160,6 +161,7 @@ class DragPinchManager implements GestureDetector.OnGestureListener, GestureDete
 
     @Override
     public boolean onDown(MotionEvent e) {
+        pdfView.startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL);
         animationManager.stopFling();
         return true;
     }
@@ -177,6 +179,10 @@ class DragPinchManager implements GestureDetector.OnGestureListener, GestureDete
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         scrolling = true;
+
+        pdfView.dispatchNestedPreScroll(0, (int) distanceY, null, null);
+        pdfView.dispatchNestedScroll(0, 0, 0, 0, null);
+
         if (pdfView.isZooming() || pdfView.isSwipeEnabled()) {
             pdfView.moveRelativeTo(-distanceX, -distanceY);
         }
@@ -187,6 +193,7 @@ class DragPinchManager implements GestureDetector.OnGestureListener, GestureDete
     }
 
     private void onScrollEnd(MotionEvent event) {
+        pdfView.stopNestedScroll();
         pdfView.loadPages();
         hideHandle();
         if (!animationManager.isFlinging()) {
