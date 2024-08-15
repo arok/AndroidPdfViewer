@@ -1,7 +1,7 @@
 
-# Change of ownership and looking for contributors!
+#### This is a fork of the [AndroidPdfViewer](https://github.com/barteksc/AndroidPdfViewer)
+switch back to the mainline repo when it gets migrated off JCenter
 
-The ownership of the project was recently changed and we are actively looking for contributors to bring the project back to track. Please [visit](https://github.com/DImuthuUpe/AndroidPdfViewer/issues/1186)
 
 # Android PdfViewer
 
@@ -12,6 +12,20 @@ so if you don't like 2.x version, try 1.x.__
 Library for displaying PDF documents on Android, with `animations`, `gestures`, `zoom` and `double tap` support.
 It is based on [PdfiumAndroid](https://github.com/barteksc/PdfiumAndroid) for decoding PDF files. Works on API 11 (Android 3.0) and higher.
 Licensed under Apache License 2.0.
+
+## 3.2.4
+* Update [PdfiumAndroid library](https://github.com/lion1988dev/PdfiumAndroid) to 1.9.4
+
+
+## 3.2.3
+* Change minimum SDK version to 21
+* Update [PdfiumAndroid library](https://github.com/lion1988dev/PdfiumAndroid) to 1.9.3
+
+## 3.2.1
+* Change minimum SDK version to 23
+* Drop MIPS support
+* Update to Androidx
+* Switch pdfium-android to a [fork](https://github.com/lion1988dev/PdfiumAndroid) so we can disable jetifier
 
 ## What's new in 3.2.0-beta.1?
 * Merge PR #714 with optimized page load
@@ -36,15 +50,19 @@ Licensed under Apache License 2.0.
 
 ## Installation
 
-Add to _build.gradle_:
+Add to the root _build.gradle_:
+```groovy
+dependencyResolutionManagement {
+		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+		repositories {
+			mavenCentral()
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+Add to the app _build.gradle_:
 
-`implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'`
-
-or if you want to use more stable version:
- 
-`implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'`
-
-Library is available in jcenter repository, probably it'll be in Maven Central soon.
+`implementation 'com.github.lion1988dev:AndroidPdfViewer:3.2.3'`
 
 ## ProGuard
 If you are using ProGuard, add following rule to proguard config file:
