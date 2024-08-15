@@ -20,11 +20,12 @@ import static com.github.barteksc.pdfviewer.util.Constants.Pinch.MINIMUM_ZOOM;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.support.v4.view.ViewCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+
+import androidx.core.view.ViewCompat;
 
 import com.github.barteksc.pdfviewer.model.LinkTapEvent;
 import com.github.barteksc.pdfviewer.scroll.ScrollHandle;
@@ -64,7 +65,7 @@ class DragPinchManager implements GestureDetector.OnGestureListener, GestureDete
         enabled = false;
     }
 
-    void disableLongpress(){
+    void disableLongpress() {
         gestureDetector.setIsLongpressEnabled(false);
     }
 
