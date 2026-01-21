@@ -9,13 +9,6 @@ buildscript {
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
 subprojects {
     configurations.configureEach {
         resolutionStrategy {
