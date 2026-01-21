@@ -64,3 +64,16 @@ dependencies {
     api 'io.github.oothp:pdfium-android:1.9.5-beta01'
 }
 
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'com.github.lion1988dev'
+            artifactId = 'AndroidPdfViewer'
+            version = "3.2.4"
+
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
+}
